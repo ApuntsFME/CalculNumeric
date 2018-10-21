@@ -1,3 +1,4 @@
 function res = f(x)
 
 res = x.^2 - 3;
+end

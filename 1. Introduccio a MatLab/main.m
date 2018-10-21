@@ -1,9 +1,22 @@
 clear; close all; clc
 
-% Format short 
-% Format long
-% Format short e
-% Format long e
+%% Exercici 1
+% % 1) Defineix una matriu A amb coeficients aleatoris (enters entre 0 i 10) i escriu les
+% %    instruccions necessaries per extreure la submatriu 2×2 formada pel primer i l’ultim
+% %    coeficient de la primera i la darrera fila. Aquesta submatriu s’ha de poder extreure
+% %    sigui quina sigui la dimensio de la matriu A.
+% 
+% n = input('nombre de files: ');
+% m = input('nombre de columnes: ');
+% 
+% A = round(10*rand(n,m))
+% 
+% % Opcio A
+% A([1,n], [1,m])
+% 
+% % Opcio B
+% [nf, nc] = size(A)
+% A([1,nf], [1,nc])
 
 %% Exercici 2
 % % Dibuixa la grafica de la funcio f(x) = x^2 - 3 per x pertanyent a (-1, 1)

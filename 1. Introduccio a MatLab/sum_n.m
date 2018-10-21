@@ -5,3 +5,4 @@ res = 0;
 for i = 1:n
     res = res + 1/(i^2);
 end
+end

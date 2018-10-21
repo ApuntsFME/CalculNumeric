@@ -16,3 +16,4 @@ end
 if iter == max_iter
     error('Nombre màxim d''iteracions excedit.');
 end
+end
