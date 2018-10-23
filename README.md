@@ -6,7 +6,7 @@ En aquesta carpeta trobaràs els fitxers que necessitaràs per l'examen de càlc
  - [x] Pràctica 2
    * [x] Exercici 8 no sé si és correcte
    * [x] Tots els exercicis adicionals
- - [ ] Pràctica 3
+ - [x] Pràctica 3
    * [x] Demanar funció de la jacobiana
-   * [ ] Tots els exercicis adicionals
+   * [x] Tots els exercicis adicionals
  - [ ] Pràctica 5 - no sé si és correcte. Falta com representar bases
