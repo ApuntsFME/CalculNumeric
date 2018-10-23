@@ -46,3 +46,36 @@ coeficients
 figure(1)
 plot(xS1,yS1,'r-',xS2,yS2,'b-',xS3,yS3,'g-',x,y,'ko','LineWidth',2)
 legend('C1 cubic','Natural','parabolic')
+
+%% Bases
+figure(2);
+hold on;
+
+for i = 1:length(x)
+    yB = zeros(1, length(x));
+    yB(i) = 1;
+    
+    k = 2:length(x)-1;
+    dSB = [ (yB(2)-yB(1))/(x(2)-x(1)) (yB(k-1)-yB(k+1))./(x(k-1)-x(k+1)) (yB(end)-yB(end-1))/(x(end)-x(end-1))];
+    [xB1,yB1,coef] = dibuixaSplineCubic(x, yB, dS, []);
+
+    d2SB = calculaCurvaturesSplineNatural(x, yB);
+    [xB2, yB2, coef] = dibuixaSplineCubic(x, yB, [], d2SB);
+
+    [xB3, yB3, coef] = dibuixaSplineC1Parabolic(x, yB);
+    
+    subplot(4, 2, i);
+    hold on;
+    h = plot(xB1, yB1, 'b-', xB2, yB2, 'r-', xB3, yB3, 'g-', [xB1(1), xB1(end)], [0, 0]);
+    stem(x, yB);
+end
+
+hL = subplot(4, 2, 7.5);
+poshL = get(hL,'position');
+
+lgd = legend(hL, h, 'C1 cubic','Natural','parabolic');
+set(lgd,'position',poshL);
+axis(hL,'off');
+
+%plot(xB2i, yB2, 'r-');
+%plot([xB2i(1), xB2i(end)], 0);
