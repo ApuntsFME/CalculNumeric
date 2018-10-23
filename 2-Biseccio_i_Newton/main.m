@@ -34,13 +34,13 @@ clear; close all; clc
 % [res_newton err_newton] = newton_tol(Ini, tol, @myF, @mydF);
 % res_newton(end)
 
-%% Exercici 8 - No acabat
+%% Exercici 8 - No se si es correcte
 % Representa el logaritme dels error per Ini = [1, 2] i Ini = 1
 Ini = [1 2];
-[res_bisecio err_biseccio] = biseccio_iter(Ini, 20, @myF);
+[res_bisecio,err_biseccio] = biseccio_iter(Ini, 20, @myF);
 Ini = 1;
-[res_newton err_newton] = newton_iter(Ini, 20, @myF, @mydF);
-myp = [err_biseccio(8:end); err_newton(8:end)]'
+[res_newton,err_newton] = newton_iter(Ini, 20, @myF, @mydF);
+myp = [log(err_biseccio); log(err_newton)]';
 figure;
 plot(myp);
 grid on;
