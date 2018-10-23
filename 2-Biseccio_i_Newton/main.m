@@ -34,13 +34,41 @@ clear; close all; clc
 % [res_newton err_newton] = newton_tol(Ini, tol, @myF, @mydF);
 % res_newton(end)
 
-%% Exercici 8 - No se si es correcte
+%% Exercici 8
 % Representa el logaritme dels error per Ini = [1, 2] i Ini = 1
-Ini = [1 2];
-[res_bisecio,err_biseccio] = biseccio_iter(Ini, 20, @myF);
-Ini = 1;
-[res_newton,err_newton] = newton_iter(Ini, 20, @myF, @mydF);
-myp = [log(err_biseccio); log(err_newton)]';
+% Ini = [1 2];
+% [res_bisecio,err_biseccio] = biseccio_iter(Ini, 20, @myF);
+% Ini = 1;
+% [res_newton,err_newton] = newton_iter(Ini, 20, @myF, @mydF);
+% myp = [log(err_biseccio); log(err_newton)]';
+% figure;
+% plot(myp);
+% grid on;
+
+%% Adicional 1
+% a) Esquema: x(k+1) = x(k) - myF(x(k)) * (x(k) - x(k-1))/(myF(x(k)) - myF(x(k-1)))
+% b) Escribir secante_iter
+% format long
+% niter = input('nombre d''iteracions: ');
+% [res_secante, err_secante] = secante_iter(0, 4, niter, @myF);
+% figure;
+% hold on;
+% plot(-1:1/10:5, myF(-1:1/10:5));
+% plot(-1:1/10:5, 0);
+% stem(res_secante, myF(res_secante));
+% % Prettyplot
+% for (i=2:length(res_secante))
+%     l = [res_secante(i-1), res_secante(i)];
+%     plot(l, myF(l), 'g--o');
+% end
+
+%% Adicional 2
+% a) Escribir whittaker_iter
+format long
+niter = input('nombre d''iteracions: ');
+[res_whittaker, err_whittaker] = whittaker_iter(1, -26, niter, @myF);
 figure;
-plot(myp);
-grid on;
+hold on;
+plot(-1:1/10:5, myF(-1:1/10:5));
+plot(-1:1/10:5, 0);
+stem(res_whittaker, myF(res_whittaker));
