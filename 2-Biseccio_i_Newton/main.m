@@ -64,11 +64,22 @@ clear; close all; clc
 
 %% Adicional 2
 % a) Escribir whittaker_iter
-format long
-niter = input('nombre d''iteracions: ');
-[res_whittaker, err_whittaker] = whittaker_iter(1, -26, niter, @myF);
-figure;
-hold on;
-plot(-1:1/10:5, myF(-1:1/10:5));
-plot(-1:1/10:5, 0);
-stem(res_whittaker, myF(res_whittaker));
+% format long
+% niter = input('nombre d''iteracions: ');
+% [res_whittaker, err_whittaker] = whittaker_iter(1, -26, niter, @myF);
+% figure;
+% hold on;
+% plot(-1:1/10:5, myF(-1:1/10:5));
+% plot(-1:1/10:5, 0);
+% stem(res_whittaker, myF(res_whittaker));
+
+%% Adicional 3
+% f = @(x) x.^5 - 2*x.^4 - 6*x.^3 + 12*x.^2 + 9*x - 18;
+% df = @(x) 5*x.^4 - 8*x.^3 - 18*x.^2 + 24*x + 9;
+% 
+% [res_newton, err_newton] = newton_iter(3, 20, f, df);
+% figure;
+% hold on;
+% plot(-2:1/10:4, f(-2:1/10:4));
+% plot([-2 4], [0 0]);
+% stem(res_newton, f(res_newton))
