@@ -1,8 +1,8 @@
-function nr = newtonraphson(x0, niter)
+function nr = newtonraphson(x0, niter, r, J)
 y = zeros(1,niter);
 
 for i = 1:niter
-    aprox = jacobiana(x0)\(-residu(x0));
+    aprox = J(x0)\(-r(x0));
     xk = x0 + aprox';
     error = abs((x0 - xk)/xk);
     y(i) = log10(error);
