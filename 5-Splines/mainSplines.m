@@ -26,23 +26,23 @@ x = [0,1,3,4,5,7]; y = [1,1.25,1,0.5,0,0.4];
 % %Spline C1 cubic amb aproximacio de les derivades
 i = 2:length(x)-1;
 dS = [ (y(2)-y(1))/(x(2)-x(1)) (y(i-1)-y(i+1))./(x(i-1)-x(i+1)) (y(end)-y(end-1))/(x(end)-x(end-1))]
-[xS1,yS1,coeficients]=dibuixaSplineCubic(x,y,dS,[]);
-coeficients
+[xS1,yS1,coeficients1]=dibuixaSplineCubic(x,y,dS,[]);
+coeficients1
 figure
 plot(xS1,yS1,'r-',x,y,'ko','LineWidth',2)
 legend('C1 cubic')
 
 %Spline natural
 d2S = calculaCurvaturesSplineNatural(x,y)
-[xS2,yS2,coeficients]=dibuixaSplineCubic(x,y,[],d2S);
-coeficients
+[xS2,yS2,coeficients2]=dibuixaSplineCubic(x,y,[],d2S);
+coeficients2
 figure(1)
 plot(xS1,yS1,'r-',xS2,yS2,'b-',x,y,'ko','LineWidth',2)
 legend('C1 cubic','Natural')
 
 % %Spline parabolic C1 (recurrent)
-[xS3,yS3,coeficients]=dibuixaSplineC1Parabolic(x,y);
-coeficients
+[xS3,yS3,coeficients3]=dibuixaSplineC1Parabolic(x,y);
+coeficients3
 figure(1)
 plot(xS1,yS1,'r-',xS2,yS2,'b-',xS3,yS3,'g-',x,y,'ko','LineWidth',2)
 legend('C1 cubic','Natural','parabolic')
@@ -51,24 +51,29 @@ legend('C1 cubic','Natural','parabolic')
 figure(2);
 hold on;
 
+coeficientes = zeros(5, 3);
+
 for i = 1:length(x)
     yB = zeros(1, length(x));
     yB(i) = 1;
     
     k = 2:length(x)-1;
     dSB = [ (yB(2)-yB(1))/(x(2)-x(1)) (yB(k-1)-yB(k+1))./(x(k-1)-x(k+1)) (yB(end)-yB(end-1))/(x(end)-x(end-1))];
-    [xB1,yB1,coef] = dibuixaSplineCubic(x, yB, dS, []);
+    [xB1,yB1,coef1] = dibuixaSplineCubic(x, yB, dSB, []);
 
     d2SB = calculaCurvaturesSplineNatural(x, yB);
-    [xB2, yB2, coef] = dibuixaSplineCubic(x, yB, [], d2SB);
+    [xB2, yB2, coef2] = dibuixaSplineCubic(x, yB, [], d2SB);
 
-    [xB3, yB3, coef] = dibuixaSplineC1Parabolic(x, yB);
+    [xB3, yB3, coef3] = dibuixaSplineC1Parabolic(x, yB);
+    coeficientes = coeficientes +  coef3*y(i);
     
     subplot(4, 2, i);
     hold on;
     h = plot(xB1, yB1, 'b-', xB2, yB2, 'r-', xB3, yB3, 'g-', [xB1(1), xB1(end)], [0, 0]);
     stem(x, yB);
 end
+
+coeficients3 - coeficientes
 
 hL = subplot(4, 2, 7.5);
 poshL = get(hL,'position');
