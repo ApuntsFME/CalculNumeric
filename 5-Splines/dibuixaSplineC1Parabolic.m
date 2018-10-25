@@ -1,4 +1,4 @@
-function [x3, y3, coef] = dibuixaSplineC1Parabolic(x,y)
+function [x3, y3, coef] = dibuixaSplineC1Parabolic(x,y,s)
 
 % Initialize
 coef = [];
@@ -6,9 +6,6 @@ x3 = [];
 y3 = [];
 
 x01 = [0:1/20:1];
-
-% Calcular el valor inicial de la derivada
-s = 0;
 
 for i=1:length(x)-1
     A = [x(i)^2, x(i), 1; x(i+1)^2, x(i+1), 1; 2*x(i), 1, 0];

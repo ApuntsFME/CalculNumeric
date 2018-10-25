@@ -41,7 +41,7 @@ plot(xS1,yS1,'r-',xS2,yS2,'b-',x,y,'ko','LineWidth',2)
 legend('C1 cubic','Natural')
 
 % %Spline parabolic C1 (recurrent)
-[xS3,yS3,coeficients3]=dibuixaSplineC1Parabolic(x,y);
+[xS3,yS3,coeficients3]=dibuixaSplineC1Parabolic(x,y,dS(1));
 coeficients3
 figure(1)
 plot(xS1,yS1,'r-',xS2,yS2,'b-',xS3,yS3,'g-',x,y,'ko','LineWidth',2)
@@ -58,18 +58,29 @@ for i = 1:length(x)
     yB(i) = 1;
     
     k = 2:length(x)-1;
-    dSB = [ (yB(2)-yB(1))/(x(2)-x(1)) (yB(k-1)-yB(k+1))./(x(k-1)-x(k+1)) (yB(end)-yB(end-1))/(x(end)-x(end-1))];
-    [xB1,yB1,coef1] = dibuixaSplineCubic(x, yB, dSB, []);
+    %dSB = [ (yB(2)-yB(1))/(x(2)-x(1)) (yB(k-1)-yB(k+1))./(x(k-1)-x(k+1)) (yB(end)-yB(end-1))/(x(end)-x(end-1))];
+    dSB1 = zeros(1, length(x));
+    [xB1,yB1,coef1] = dibuixaSplineCubic(x, yB, dSB1, []);
+    dSB1(i) = 1;
+    [xDB1, yDB1, coef1] = dibuixaSplineCubic(x, zeros(1, length(x)), dSB1, []);
 
     d2SB = calculaCurvaturesSplineNatural(x, yB);
     [xB2, yB2, coef2] = dibuixaSplineCubic(x, yB, [], d2SB);
 
-    [xB3, yB3, coef3] = dibuixaSplineC1Parabolic(x, yB);
-    coeficientes = coeficientes +  coef3*y(i);
+    [xB3, yB3, coef3] = dibuixaSplineC1Parabolic(x, yB, 0);
+    coeficientes = coeficientes + coef3*y(i);
+    if (i == 1)
+      [xB3d, yB3d, coef3] = dibuixaSplineC1Parabolic(x, zeros(1, length(x)), 1);
+      coeficientes = coeficientes + coef3*dS(1);
+    end
     
     subplot(4, 2, i);
     hold on;
-    h = plot(xB1, yB1, 'b-', xB2, yB2, 'r-', xB3, yB3, 'g-', [xB1(1), xB1(end)], [0, 0]);
+    if (i == 1)
+      h = plot(xB1, yB1, 'b-', xDB1, yDB1, 'b--', xB2, yB2, 'r-', xB3, yB3, 'g-', xB3d, yB3d, 'g--', [xB1(1), xB1(end)], [0, 0]);
+    else
+      plot(xB1, yB1, 'b-', xDB1, yDB1, 'b--', xB2, yB2, 'r-', xB3, yB3, 'g-', [xB1(1), xB1(end)], [0, 0]);
+    end
     stem(x, yB);
 end
 
@@ -78,7 +89,7 @@ coeficients3 - coeficientes
 hL = subplot(4, 2, 7.5);
 poshL = get(hL,'position');
 
-lgd = legend(hL, h, 'C1 cubic','Natural','parabolic');
+lgd = legend(hL, h, 'C1 cubic', 'C1 cubic derivades', 'Natural','parabolic', 'parabolic derivat');
 set(lgd,'position',poshL);
 axis(hL,'off');
 
